@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Together</title>
+    <meta name="description" content="Do things. With people. For real.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAFAF9;
+            --fg: #1A1A1A;
+            --muted: #737373;
+            --subtle: #E7E5E4;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            font-weight: 400;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* ============================================
+           LAYOUT
+        ============================================ */
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 clamp(32px, 6vw, 96px);
+        }
+
+        /* ============================================
+           HEADER
+        ============================================ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 32px 0;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(250, 250, 249, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 16px 0;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--fg);
+            text-decoration: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .logo-mark {
+            position: absolute;
+            left: 0;
+            width: 36px;
+            height: 36px;
+            background: var(--fg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.375rem;
+            color: var(--bg);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        header.scrolled .logo {
+            opacity: 0;
+            transform: translateX(-10px);
+            pointer-events: none;
+        }
+
+        header.scrolled .logo-mark {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .header-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .header-links a:hover {
+            color: var(--fg);
+        }
+
+        .header-cta {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--fg);
+            background: transparent;
+            padding: 12px 24px;
+            text-decoration: none;
+            border: 1px solid var(--subtle);
+            border-radius: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            border-color: var(--fg);
+            background: var(--fg);
+            color: var(--bg);
+        }
+
+        /* ============================================
+           HERO
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 80px;
+            align-items: end;
+        }
+
+        .hero-main {
+            padding-bottom: 24px;
+        }
+
+        .hero-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4.5rem, 13vw, 11rem);
+            line-height: 0.88;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+            margin-bottom: 48px;
+        }
+
+        .hero-headline span {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-headline span em {
+            display: block;
+            font-style: normal;
+            transform: translateY(100%);
+            animation: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .hero-headline span:nth-child(1) em { animation-delay: 0.1s; }
+        .hero-headline span:nth-child(2) em { animation-delay: 0.18s; }
+        .hero-headline span:nth-child(3) em { animation-delay: 0.26s; }
+
+        @keyframes reveal {
+            to { transform: translateY(0); }
+        }
+
+        .hero-intro {
+            max-width: 480px;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--muted);
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.6s forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Signup side */
+        .hero-signup {
+            border-left: 1px solid var(--subtle);
+            padding-left: 48px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.7s forwards;
+        }
+
+        .signup-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .signup-input {
+            width: 100%;
+            padding: 20px 0;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 400;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--subtle);
+            color: var(--fg);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .signup-input::placeholder {
+            color: var(--muted);
+        }
+
+        .signup-input:focus {
+            border-color: var(--fg);
+        }
+
+        .signup-btn {
+            align-self: flex-start;
+            margin-top: 16px;
+            padding: 18px 40px;
+            font-family: inherit;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: var(--fg);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .signup-success {
+            display: none;
+            padding: 20px 0;
+            font-size: 0.9375rem;
+            border-bottom: 1px solid var(--fg);
+        }
+
+        .signup-success.show {
+            display: block;
+            animation: fadeUp 0.4s ease;
+        }
+
+        .signup-form.submitted .signup-input,
+        .signup-form.submitted .signup-btn {
+            display: none;
+        }
+
+        /* ============================================
+           PHILOSOPHY
+        ============================================ */
+        .philosophy {
+            padding: 160px 0;
+            border-top: 1px solid var(--subtle);
+        }
+
+        .philosophy .container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 80px;
+        }
+
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding-top: 8px;
+        }
+
+        .philosophy-text {
+            max-width: 720px;
+        }
+
+        .philosophy-text p {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 32px;
+        }
+
+        .philosophy-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .philosophy-text strong {
+            font-weight: 500;
+            color: var(--fg);
+        }
+
+        .philosophy-text span {
+            color: var(--muted);
+        }
+
+        /* ============================================
+           PROCESS
+        ============================================ */
+        .process {
+            padding: 160px 0;
+            background: var(--fg);
+            color: var(--white);
+        }
+
+        .process .container {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 80px;
+        }
+
+        .process .section-label {
+            color: var(--muted);
+        }
+
+        .process-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .process-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 48px;
+            padding: 48px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .process-item:first-child {
+            padding-top: 0;
+        }
+
+        .process-item:last-child {
+            border-bottom: none;
+        }
+
+        .process-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            line-height: 1;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .process-content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.75rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .process-content p {
+            font-size: 0.9375rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.6);
+            font-weight: 300;
+            max-width: 400px;
+        }
+
+        /* ============================================
+           FINAL CTA
+        ============================================ */
+        .final-cta {
+            padding: 200px 0;
+            text-align: center;
+        }
+
+        .final-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .final-sub {
+            font-size: 1rem;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 48px;
+        }
+
+        .final-form {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .final-form .signup-input {
+            text-align: center;
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--subtle);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.125rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--fg);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--fg);
+        }
+
+        /* ============================================
+           MOBILE
+        ============================================ */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 64px;
+            }
+
+            .hero-signup {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid var(--subtle);
+                padding-top: 48px;
+                max-width: 400px;
+            }
+
+            .philosophy .container,
+            .process .container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 24px 0;
+            }
+
+            .header-links {
+                display: none;
+            }
+
+            .hero {
+                padding-bottom: 64px;
+            }
+
+            .hero-headline {
+                font-size: 3.5rem;
+            }
+
+            .process-item {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .final-form {
+                flex-direction: column;
+            }
+
+            .signup-btn {
+                width: 100%;
+            }
+
+            footer .container {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="container">
+            <div class="logo-wrapper">
+                <a href="#" class="logo">Together</a>
+                <a href="#" class="logo-mark">T</a>
+            </div>
+            <div class="header-right">
+                <div class="header-links">
+                    <a href="https://x.com/jointogetherapp" target="_blank">X</a>
+                    <a href="https://instagram.com/jointogetherapp" target="_blank">Instagram</a>
+                </div>
+                <a href="#signup" class="header-cta">Early Access</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-main">
+                <h1 class="hero-headline">
+                    <span><em>Do things.</em></span>
+                    <span><em>With people.</em></span>
+                    <span><em>For real.</em></span>
+                </h1>
+                <p class="hero-intro">
+                    A platform for people who are done scrolling and ready to show up. Join challenges, find accountability, build real connection — online and in person.
+                </p>
+            </div>
+            <div class="hero-signup" id="signup">
+                <div class="signup-label">Request Early Access</div>
+                <form class="signup-form" id="signup-form" action="https://formspree.io/f/maqljwvv" method="POST">
+                    <input type="email" name="email" class="signup-input" placeholder="Email address" required id="email-input">
+                    <button type="submit" class="signup-btn">Join Waitlist</button>
+                </form>
+                <div class="signup-success" id="success-msg">You're on the list.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy">
+        <div class="container">
+            <div class="section-label">The Why</div>
+            <div class="philosophy-text">
+                <p>
+                    <strong>We spend hours consuming content and have nothing to show for it.</strong> We're more connected than any generation in history, and lonelier than ever.
+                </p>
+                <p>
+                    <span>AI can do everything for us now — except give us the feeling of having earned something real, with real people, in the real world.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <div class="section-label">The How</div>
+            <div class="process-list">
+                <div class="process-item">
+                    <div class="process-number">01</div>
+                    <div class="process-content">
+                        <h3>Choose a Challenge</h3>
+                        <p>30-day fitness streaks. Learning a new skill. Weekly cooking goals. Pick from curated challenges or create your own.</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-number">02</div>
+                    <div class="process-content">
+                        <h3>Find Your People</h3>
+                        <p>Get matched with accountability partners who share your ambition. A community that actually shows up.</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-number">03</div>
+                    <div class="process-content">
+                        <h3>Show Up Together</h3>
+                        <p>Check in daily. Meet in person. Cross the finish line. Walk away with something real.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="final-headline">Ready to begin?</h2>
+            <p class="final-sub">Be the first to know when we launch.</p>
+            <form class="final-form" id="final-form" action="https://formspree.io/f/maqljwvv" method="POST">
+                <input type="email" name="email" class="signup-input" placeholder="Email" required>
+                <button type="submit" class="signup-btn">Join</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-left">
+                <div class="footer-logo">Together</div>
+                <div class="footer-copy">© 2026</div>
+            </div>
+            <div class="footer-links">
+                <a href="https://x.com/jointogetherapp" target="_blank">X</a>
+                <a href="https://instagram.com/jointogetherapp" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Form handling with Formspree
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                
+                try {
+                    await fetch('https://formspree.io/f/maqljwvv', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email })
+                    });
+                    
+                    if (this.id === 'signup-form') {
+                        this.classList.add('submitted');
+                        document.getElementById('success-msg').classList.add('show');
+                    } else {
+                        this.innerHTML = '<div class="signup-success show">You\'re on the list.</div>';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
