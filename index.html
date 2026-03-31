@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Together</title>
     <meta name="description" content="Do things. With people. For real.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -258,24 +265,26 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 32px;
+            margin-bottom: 20px;
         }
 
         .signup-form {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
+        }
+
+        .signup-form.submitted {
+            display: none;
         }
 
         .signup-input {
-            width: 100%;
-            padding: 20px 0;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 400;
-            background: transparent;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.9375rem;
+            padding: 16px 0;
             border: none;
             border-bottom: 1px solid var(--subtle);
+            background: transparent;
             color: var(--fg);
             outline: none;
             transition: border-color 0.3s ease;
@@ -290,41 +299,33 @@
         }
 
         .signup-btn {
-            align-self: flex-start;
-            margin-top: 16px;
-            padding: 18px 40px;
-            font-family: inherit;
+            font-family: 'Sora', sans-serif;
             font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            background: var(--fg);
-            color: var(--white);
+            padding: 16px 32px;
             border: none;
+            background: var(--fg);
+            color: var(--bg);
             cursor: pointer;
+            margin-top: 8px;
             transition: all 0.3s ease;
         }
 
         .signup-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+            background: var(--muted);
         }
 
         .signup-success {
-            display: none;
-            padding: 20px 0;
             font-size: 0.9375rem;
-            border-bottom: 1px solid var(--fg);
+            color: var(--fg);
+            display: none;
+            padding: 16px 0;
         }
 
         .signup-success.show {
             display: block;
-            animation: fadeUp 0.4s ease;
-        }
-
-        .signup-form.submitted .signup-input,
-        .signup-form.submitted .signup-btn {
-            display: none;
         }
 
         /* ============================================
@@ -332,12 +333,11 @@
         ============================================ */
         .philosophy {
             padding: 160px 0;
-            border-top: 1px solid var(--subtle);
         }
 
         .philosophy .container {
             display: grid;
-            grid-template-columns: 200px 1fr;
+            grid-template-columns: 160px 1fr;
             gap: 80px;
         }
 
@@ -347,18 +347,18 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--muted);
-            padding-top: 8px;
+            padding-top: 6px;
         }
 
         .philosophy-text {
-            max-width: 720px;
+            max-width: 640px;
         }
 
         .philosophy-text p {
-            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-            line-height: 1.6;
+            font-size: 1.375rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
             font-weight: 300;
-            margin-bottom: 32px;
         }
 
         .philosophy-text p:last-child {
@@ -366,8 +366,8 @@
         }
 
         .philosophy-text strong {
-            font-weight: 500;
             color: var(--fg);
+            font-weight: 500;
         }
 
         .philosophy-text span {
@@ -378,99 +378,114 @@
            PROCESS
         ============================================ */
         .process {
-            padding: 160px 0;
-            background: var(--fg);
-            color: var(--white);
+            padding: 0 0 160px 0;
         }
 
         .process .container {
             display: grid;
-            grid-template-columns: 200px 1fr;
+            grid-template-columns: 160px 1fr;
             gap: 80px;
-        }
-
-        .process .section-label {
-            color: var(--muted);
         }
 
         .process-list {
             display: flex;
             flex-direction: column;
+            gap: 48px;
         }
 
         .process-item {
             display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 48px;
-            padding: 48px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .process-item:first-child {
-            padding-top: 0;
+            grid-template-columns: 48px 1fr;
+            gap: 32px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--subtle);
         }
 
         .process-item:last-child {
             border-bottom: none;
+            padding-bottom: 0;
         }
 
         .process-number {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            line-height: 1;
-            color: rgba(255,255,255,0.2);
+            font-size: 1rem;
+            color: var(--muted);
         }
 
         .process-content h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.75rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            font-weight: 400;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 12px;
         }
 
         .process-content p {
             font-size: 0.9375rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            color: var(--muted);
             font-weight: 300;
-            max-width: 400px;
+            max-width: 480px;
         }
 
         /* ============================================
            FINAL CTA
         ============================================ */
         .final-cta {
-            padding: 200px 0;
+            padding: 120px 0;
+            background: var(--fg);
+            color: var(--bg);
             text-align: center;
         }
 
         .final-headline {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 8vw, 5rem);
             letter-spacing: 0.02em;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .final-sub {
             font-size: 1rem;
-            color: var(--muted);
+            color: rgba(250, 250, 249, 0.6);
             font-weight: 300;
-            margin-bottom: 48px;
+            margin-bottom: 40px;
         }
 
         .final-form {
             display: flex;
             justify-content: center;
-            gap: 16px;
-            max-width: 440px;
+            gap: 12px;
+            max-width: 420px;
             margin: 0 auto;
         }
 
         .final-form .signup-input {
-            text-align: center;
+            flex: 1;
+            border-color: rgba(250, 250, 249, 0.2);
+            color: var(--bg);
+        }
+
+        .final-form .signup-input::placeholder {
+            color: rgba(250, 250, 249, 0.4);
+        }
+
+        .final-form .signup-input:focus {
+            border-color: var(--bg);
+        }
+
+        .final-form .signup-btn {
+            background: var(--bg);
+            color: var(--fg);
+            margin-top: 0;
+        }
+
+        .final-form .signup-btn:hover {
+            background: rgba(250, 250, 249, 0.85);
+        }
+
+        .final-form .signup-success {
+            color: var(--bg);
         }
 
         /* ============================================
